@@ -12,7 +12,7 @@ class FriendsList extends StatefulWidget {
 }
 
 class _FriendsListState extends State<FriendsList> {
-  TextEditingController textEditingController;
+  TextEditingController textController;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   CrudMethods crudMethods = new CrudMethods();
@@ -20,7 +20,7 @@ class _FriendsListState extends State<FriendsList> {
   @override
   void initState() {
     super.initState();
-    textEditingController = TextEditingController();
+    textController = TextEditingController();
   }
 
   @override
@@ -147,7 +147,7 @@ class _FriendsListState extends State<FriendsList> {
                                     ),
                                     IconButton(
                                       icon: Icon(
-                                        Icons.search_rounded,
+                                        Icons.filter_alt_rounded,
                                         color: Color(0xFF95A1AC),
                                         size: 30,
                                       ),
@@ -177,6 +177,19 @@ class _FriendsListState extends State<FriendsList> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
+                  Padding(
+
+                    padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        FriendsWidget(addFriends: Constants.testWidget),
+                        FriendsWidget(addFriends: Constants.testWidget),
+                        FriendsWidget(addFriends: Constants.testWidget),
+                        FriendsWidget(addFriends: Constants.testWidget),
+                      ],
+                    ),
+                  ),
                   FutureBuilder(
                       future: crudMethods.getData("users"),
                       builder: (context,AsyncSnapshot<dynamic> snap) {
