@@ -14,12 +14,6 @@ jobs:
       - uses: subosito/flutter-action@v1
         with:
           channel: stable
-      - name: pub get
-        run: |
-         cd breview
-         flutter pub get
-      - name: analyze
-        run: |
-         cd breview
-         flutter analyze .
-#      - run: flutter test
+
+      - run: flutter pub get
+      - run: flutter build apk
