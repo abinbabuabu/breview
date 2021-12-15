@@ -15,38 +15,11 @@ jobs:
         with:
           channel: stable
 
-      - name: pub get
-        run: |
-         cd breview
-         flutter pub get
-      - name: analyze
-        run: |
-         cd breview
-         flutter analyze .
+      - run: flutter pub get
+      - run: flutter analyze .
 #      - run: flutter test
-      - name: build apk
-        run: |
-         cd breview
-         flutter build apk
+      - run: flutter build apk
       - uses: actions/upload-artifact@v1
         with:
           name: release-apk
-          path: breview/build/app/outputs/apk/release/app-release.apk
-      
-      # Setup web 
-      - name: Install Node
-        uses: actions/setup-node@v1
-        with:
-          node-version: '14'
-      - name: install libraries
-        run: |
-          npm install
-          npm i firebase-tools -g
-          
-      - name: build web
-        run: |
-          cd breview
-          flutter build web  
-          
-      - name: deploy
-        run: firebase deploy --token ${{secrets.FIRE_TOKEN}}
+          path: build/app/outputs/apk/release/app-release.apk
