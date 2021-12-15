@@ -7,7 +7,6 @@ import 'package:flutter/foundation.dart';
 
 class LoginProvider {
   static FirebaseAuth firebaseAuth;
-  static FirebaseFirestore db = FirebaseFirestore.instance;
 
   static StreamController<String> statusStream;
   static Stream stateStream;
