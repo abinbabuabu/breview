@@ -12,7 +12,7 @@ class FriendsList extends StatefulWidget {
 }
 
 class _FriendsListState extends State<FriendsList> {
-  TextEditingController textController;
+  TextEditingController textEditingController;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   CrudMethods crudMethods = new CrudMethods();
@@ -20,7 +20,7 @@ class _FriendsListState extends State<FriendsList> {
   @override
   void initState() {
     super.initState();
-    textController = TextEditingController();
+    textEditingController = TextEditingController();
   }
 
   @override
