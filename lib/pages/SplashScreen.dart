@@ -74,4 +74,11 @@ class _SplashScreenState extends State<SplashScreen> {
       }
     });
   }
+
+  @override
+  void dispose() {
+    _streamSubscription.cancel();
+    _streamSubscription = null;
+    super.dispose();
+  }
 }
