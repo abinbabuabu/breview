@@ -1,5 +1,5 @@
 import 'package:breview/provider/LoginProvider.dart';
-import 'package:breview/util/RouteAnimation.dart'
+import 'package:breview/util/RouteAnimation.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -210,6 +210,7 @@ class _PhoneloginWidgetState extends State<PhoneloginWidget> {
           );
         });
   }
+
   startPhoneAuth(String phone, BuildContext navcontext) {
     LoginProvider.startAuth(phoneNumber: "+91" + phone);
     LoginProvider.stateStream.listen((state) {

@@ -5,11 +5,13 @@ import 'package:breview/widgets/BlogsProfileWidget.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+
 class BlogsPage extends StatefulWidget {
   BlogsPage({Key key}) : super(key: key);
   @override
   _BlogsPageState createState() => _BlogsPageState();
 }
+
 class _BlogsPageState extends State<BlogsPage> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
   String userName = "";
@@ -29,6 +31,7 @@ class _BlogsPageState extends State<BlogsPage> {
       userName = name;
     });
   }
+
   @override
   Widget build(BuildContext context) {
     getUserName();
@@ -144,9 +147,9 @@ class _BlogsPageState extends State<BlogsPage> {
                                           profilePictureUrl: snapshot.data
                                               .docs[index]['ProfilePictureUrl'],
                                           username: snapshot.data.docs[index]
-                                          ['username'],
+                                              ['username'],
                                           image: snapshot.data.docs[index]
-                                          ['image'],
+                                              ['image'],
                                           likes: snapshot
                                               .data.docs[index]['likes']
                                               .toString());

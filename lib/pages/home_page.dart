@@ -1,4 +1,4 @@
-import 'package:breview/pages/blogs_page.dart';
+import 'package:breview/pages/blog_page.dart';
 import 'package:breview/pages/friendslist_page.dart';
 import 'package:breview/util/Constants.dart';
 import 'package:flutter/foundation.dart';

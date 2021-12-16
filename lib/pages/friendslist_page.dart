@@ -1,6 +1,6 @@
 import 'package:breview/widgets/FriendListWidget.dart';
 import 'package:flutter/material.dart';
-import 'package:breview/widgets/FriendsWidget.dart';
+import 'package:breview/widgets/FriendListWidget.dart';
 import 'package:breview/util/Constants.dart';
 import 'package:breview/services/crud.dart';
 
@@ -51,7 +51,9 @@ class _FriendsListState extends State<FriendsList> {
                         children: [
                           Padding(
                             padding:
-                            EdgeInsetsDirectional.fromSTEB(8, 0, 0, 0),
+                                EdgeInsetsDirectional.fromSTEB(16, 0, 0, 0),
+
+
                             child: Row(
                               mainAxisSize: MainAxisSize.max,
                               children: [
@@ -61,7 +63,7 @@ class _FriendsListState extends State<FriendsList> {
                                   child: Text(
                                     'Friends',
                                     style: TextStyle(
-                                      fontFamily: 'Lexend Deca',
+                                    fontFamily: 'Lexend Deca',
                                       color: Colors.white,
                                       fontSize: 28,
                                       fontWeight: FontWeight.bold,
@@ -73,7 +75,8 @@ class _FriendsListState extends State<FriendsList> {
                           ),
                           Padding(
                             padding:
-                            EdgeInsetsDirectional.fromSTEB(5, 0, 5, 0),
+                                EdgeInsetsDirectional.fromSTEB(12, 0, 12, 0),
+
                             child: Card(
                               clipBehavior: Clip.antiAliasWithSaveLayer,
                               color: Colors.white,
@@ -83,7 +86,8 @@ class _FriendsListState extends State<FriendsList> {
                               ),
                               child: Padding(
                                 padding:
-                                EdgeInsetsDirectional.fromSTEB(5, 0, 5, 0),
+                                    EdgeInsetsDirectional.fromSTEB(8, 0, 8, 0)
+
                                 child: Row(
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
@@ -118,7 +122,7 @@ class _FriendsListState extends State<FriendsList> {
                                                 width: 1,
                                               ),
                                               borderRadius:
-                                              const BorderRadius.only(
+                                                  const BorderRadius.only(
                                                 topLeft: Radius.circular(4.0),
                                                 topRight: Radius.circular(4.0),
                                               ),
@@ -129,7 +133,7 @@ class _FriendsListState extends State<FriendsList> {
                                                 width: 1,
                                               ),
                                               borderRadius:
-                                              const BorderRadius.only(
+                                                  const BorderRadius.only(
                                                 topLeft: Radius.circular(4.0),
                                                 topRight: Radius.circular(4.0),
                                               ),
@@ -178,7 +182,6 @@ class _FriendsListState extends State<FriendsList> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Padding(
-
                     padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
                     child: Row(
                       mainAxisSize: MainAxisSize.max,
@@ -192,7 +195,7 @@ class _FriendsListState extends State<FriendsList> {
                   ),
                   FutureBuilder(
                       future: crudMethods.getData("users"),
-                      builder: (context,AsyncSnapshot<dynamic> snap) {
+                      builder: (context, AsyncSnapshot<dynamic> snap) {
                         return Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
                           child: Column(
@@ -200,21 +203,23 @@ class _FriendsListState extends State<FriendsList> {
                             children: [
                               StreamBuilder(
                                   stream: snap.data,
-                                  builder: (context, snapshot){
-                                    if(snapshot.hasData){
+                                  builder: (context, snapshot) {
+                                    if (snapshot.hasData) {
                                       return ListView.builder(
                                           scrollDirection: Axis.vertical,
                                           shrinkWrap: true,
                                           itemCount: snapshot.data.docs.length,
-                                          itemBuilder: (context, index){
+                                          itemBuilder: (context, index) {
                                             return FriendListWidget(
-                                                firstName: snapshot.data.docs[index]['first_name'],
-                                                lastName: snapshot.data.docs[index]['last_name'],
-                                                profilePicture: snapshot.data.docs[index]['profile_picture']
-                                            );
+                                                firstName: snapshot.data
+                                                    .docs[index]['first_name'],
+                                                lastName: snapshot.data
+                                                    .docs[index]['last_name'],
+                                                profilePicture:
+                                                    snapshot.data.docs[index]
+                                                        ['profile_picture']);
                                           });
-                                    }
-                                    else{
+                                    } else {
                                       return Container(
                                           alignment: Alignment.center,
                                           child: CircularProgressIndicator());
@@ -223,8 +228,7 @@ class _FriendsListState extends State<FriendsList> {
                             ],
                           ),
                         );
-                      }
-                  )
+                      })
                 ],
               ),
             ),
