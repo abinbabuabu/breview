@@ -45,13 +45,13 @@ class _FriendsListState extends State<FriendsList> {
                       color: Colors.black,
                     ),
                     child: Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(0, 34, 0, 0),
+                      padding: EdgeInsetsDirectional.fromSTEB(0, 5, 0, 0),
                       child: Column(
                         mainAxisSize: MainAxisSize.max,
                         children: [
                           Padding(
                             padding:
-                            EdgeInsetsDirectional.fromSTEB(16, 0, 0, 0),
+                            EdgeInsetsDirectional.fromSTEB(8, 0, 0, 0),
                             child: Row(
                               mainAxisSize: MainAxisSize.max,
                               children: [
@@ -105,7 +105,7 @@ class _FriendsListState extends State<FriendsList> {
                                           controller: textController,
                                           obscureText: false,
                                           decoration: InputDecoration(
-                                            labelText: 'Search friends here...',
+                                            labelText: 'Do Friend Search..',
                                             labelStyle: TextStyle(
                                               fontFamily: 'Lexend Deca',
                                               color: Color(0xFF82878C),
