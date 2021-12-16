@@ -144,9 +144,9 @@ class _BlogsPageState extends State<BlogsPage> {
                                           profilePictureUrl: snapshot.data
                                               .docs[index]['ProfilePictureUrl'],
                                           username: snapshot.data.docs[index]
-                                              ['username'],
+                                          ['username'],
                                           image: snapshot.data.docs[index]
-                                              ['image'],
+                                          ['image'],
                                           likes: snapshot
                                               .data.docs[index]['likes']
                                               .toString());
