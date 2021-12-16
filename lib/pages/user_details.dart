@@ -83,12 +83,23 @@ class _UserDetailsPageState extends State<UserDetailsPage> {
                                     onTap: () {
                                       _showPicker(context);
                                     },
-                                    child: CircleAvatar(
+                                    child:  CircleAvatar(
                                         radius: 55,
                                         backgroundColor: Color(0xffFDCF09),
-                                        child: ClipRRect(
+                                        child: _image != null
+                                            ? ClipRRect(
                                           borderRadius:
-                                              BorderRadius.circular(60),
+                                          BorderRadius.circular(50),
+                                          child: Image.file(
+                                            File(_image.path),
+                                            width: 100,
+                                            height: 100,
+                                            fit: BoxFit.fitHeight,
+                                          ),
+                                        )
+                                            : ClipRRect(
+                                          borderRadius:
+                                          BorderRadius.circular(60),
                                           child: Image(
                                             fit: BoxFit.fitHeight,
                                             image: Image.asset(
