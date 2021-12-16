@@ -4,7 +4,7 @@ import 'package:breview/models/Create_Blog.dart';
 import 'package:breview/pages/blogs_page.dart';
 import 'package:breview/services/crud.dart';
 import 'package:breview/widgets/FilledButton.dart';
-import 'package:breview/widgets/UserDetailstInputText.dart';
+import 'package:breview/widgets/UserDetailsInputText.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';

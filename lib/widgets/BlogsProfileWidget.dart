@@ -1,6 +1,8 @@
 import 'package:breview/util/Constants.dart';
-import 'package:breview/widgets/BlogsWidget.dart';
+import 'package:breview/widgets/BlogsWidgets.dart';
 import 'package:flutter/material.dart';
+
+import 'BlogsWidgets.dart';
 
 class BlogsProfileWidget extends StatelessWidget {
   final String profilePictureUrl, username, image, likes;
