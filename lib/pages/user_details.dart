@@ -1,11 +1,16 @@
+import 'dart:io';
 
 import 'package:breview/models/UserDetails.dart';
+import 'package:breview/services/crud.dart';
 import 'package:breview/widgets/FilledButton.dart';
 import 'package:breview/widgets/UserDetailsInputText.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_web_frame/flutter_web_frame.dart';
+import 'package:image_picker/image_picker.dart';
+
+import 'home_page.dart';
 
 class UserDetailsPage extends StatefulWidget {
   UserDetailsPage({Key key}) : super(key: key);
@@ -15,7 +20,8 @@ class UserDetailsPage extends StatefulWidget {
 }
 
 class _UserDetailsPageState extends State<UserDetailsPage> {
-
+  XFile _image;
+  final ImagePicker _picker = ImagePicker();
   final formKey = GlobalKey<FormState>();
   final scaffoldKey = GlobalKey<ScaffoldState>();
   TextEditingController firstNameController;
@@ -74,22 +80,23 @@ class _UserDetailsPageState extends State<UserDetailsPage> {
                                   ),
                                   Center(
                                       child: GestureDetector(
-                                        onTap: () {
-                                        },
-                                        child: CircleAvatar(
-                                            radius: 55,
-                                            backgroundColor: Color(0xffFDCF09),
-                                            child: ClipRRect(
-                                              borderRadius:
+                                    onTap: () {
+                                      _showPicker(context);
+                                    },
+                                    child: CircleAvatar(
+                                        radius: 55,
+                                        backgroundColor: Color(0xffFDCF09),
+                                        child: ClipRRect(
+                                          borderRadius:
                                               BorderRadius.circular(60),
-                                              child: Image(
-                                                fit: BoxFit.fitHeight,
-                                                image: Image.asset(
-                                                  'assets/images/profile_image.png',
-                                                ).image,
-                                              ),
-                                            )),
-                                      )),
+                                          child: Image(
+                                            fit: BoxFit.fitHeight,
+                                            image: Image.asset(
+                                              'assets/images/profile_image.png',
+                                            ).image,
+                                          ),
+                                        )),
+                                  )),
                                   UserDetailsInputText(
                                     textEditingController: firstNameController,
                                     labelText: "First Name",
@@ -116,14 +123,21 @@ class _UserDetailsPageState extends State<UserDetailsPage> {
                                         User user = await FirebaseAuth
                                             .instance.currentUser;
                                         UserDetails userDetails =
-                                        new UserDetails(
-                                            user.uid,
-                                            firstNameController.text,
-                                            lastNameController.text,
-                                            lastNameController.text,
-                                            user.phoneNumber,
-                                            "test");
+                                            new UserDetails(
+                                                user.uid,
+                                                firstNameController.text,
+                                                lastNameController.text,
+                                                lastNameController.text,
+                                                user.phoneNumber,
+                                                "test");
 
+                                        CrudMethods.saveUserData(
+                                            File(_image.path), userDetails);
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) => HomePage()),
+                                        );
                                       }
                                     },
                                     text: "Finish",
@@ -133,5 +147,35 @@ class _UserDetailsPageState extends State<UserDetailsPage> {
                         )),
                   )));
         });
+  }
+
+  void _showPicker(context) {
+    showModalBottomSheet(
+        context: context,
+        builder: (BuildContext bc) {
+          return SafeArea(
+            child: Container(
+              child: new Wrap(
+                children: <Widget>[
+                  new ListTile(
+                      leading: new Icon(Icons.photo_library),
+                      title: new Text('Gallery'),
+                      onTap: () {
+                        _imgFromGallery();
+                        Navigator.of(context).pop();
+                      }),
+                ],
+              ),
+            ),
+          );
+        });
+  }
+
+  _imgFromGallery() async {
+    XFile image =
+        await _picker.pickImage(source: ImageSource.gallery, imageQuality: 50);
+    setState(() {
+      _image = image;
+    });
   }
 }
