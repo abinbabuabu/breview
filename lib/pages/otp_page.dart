@@ -1,3 +1,6 @@
+import 'package:breview/pages/login_page.dart';
+import 'package:breview/pages/user_details_page.dart';
+import 'package:breview/provider/LoginProvider.dart';
 import 'package:breview/util/RouteAnimation.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -179,7 +182,11 @@ class _OTPPageWidgetState extends State<OTPPageWidget> {
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 children: [
                                   ElevatedButton(
-                                    onPressed: () {},
+                                    onPressed: () {
+                                      print('Button pressed ...');
+                                      print(otp);
+                                      otpSubmit(otp);
+                                    },
                                     child: Text(
                                       'Verify',
                                       style: TextStyle(
@@ -205,5 +212,32 @@ class _OTPPageWidgetState extends State<OTPPageWidget> {
             ),
           );
         });
+  }
+
+  autoCodeRetrieve() {
+    LoginProvider.stateStream.listen((state) {
+      if (state == PhoneAuthState.Verified) {
+        FocusScope.of(context).unfocus();
+        Navigator.of(_scaffoldKey.currentContext)
+            .pushReplacement(MaterialPageRoute(builder: (_) {
+          return UserDetailsPage();
+        }));
+      } else if (state == PhoneAuthState.newUser) {
+        print(state);
+        Navigator.of(_scaffoldKey.currentContext)
+            .pushReplacement(SlideRightRoute(page: UserDetailsPage()));
+      } else {
+        Future.delayed(Duration(seconds: 8), () {
+          Navigator.of(_scaffoldKey.currentContext)
+              .pushReplacement(MaterialPageRoute(builder: (_) {
+            return PhoneloginWidget();
+          }));
+        });
+      }
+    });
+  }
+
+  otpSubmit(String otp) {
+    LoginProvider.signInWithPhoneNumber(otp);
   }
 }
