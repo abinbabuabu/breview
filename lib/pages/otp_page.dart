@@ -1,29 +1,24 @@
-import 'package:breview/provider/LoginProvider.dart';
-import 'package:breview/util/RouteAnimation.dart'
+import 'package:breview/util/RouteAnimation.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_web_frame/flutter_web_frame.dart';
+import 'package:pinput/pin_put/pin_put.dart';
 
-class PhoneloginWidget extends StatefulWidget {
-  PhoneloginWidget({Key key}) : super(key: key);
+class OTPPageWidget extends StatefulWidget {
+  OTPPageWidget({Key key}) : super(key: key);
 
   @override
-  _PhoneloginWidgetState createState() => _PhoneloginWidgetState();
+  _OTPPageWidgetState createState() => _OTPPageWidgetState();
 }
 
-class _PhoneloginWidgetState extends State<PhoneloginWidget> {
-  final _formKey = GlobalKey<FormState>();
-
-  final _focusNode = FocusNode();
-
-  var provider;
-  String phone;
+class _OTPPageWidgetState extends State<OTPPageWidget> {
+  String otp;
 
   final _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
+    autoCodeRetrieve();
     super.initState();
   }
 
@@ -95,9 +90,34 @@ class _PhoneloginWidgetState extends State<PhoneloginWidget> {
                               child: Row(
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
+                                  Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        0, 0, 16, 0),
+                                    child: Container(
+                                      width: 40,
+                                      height: 40,
+                                      decoration: BoxDecoration(
+                                        color: Color(0xFF191817),
+                                        shape: BoxShape.circle,
+                                        border: Border.all(
+                                          color: Color(0xFFDBE2E7),
+                                        ),
+                                      ),
+                                      child: InkWell(
+                                        onTap: () async {
+                                          Navigator.pop(context);
+                                        },
+                                        child: Icon(
+                                          Icons.arrow_back_rounded,
+                                          color: Colors.white,
+                                          size: 24,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
                                   Expanded(
                                     child: Text(
-                                      'Sign In',
+                                      'Verify Code',
                                       style: TextStyle(
                                         fontFamily: 'Lexend Deca',
                                         color: Colors.white,
@@ -117,56 +137,37 @@ class _PhoneloginWidgetState extends State<PhoneloginWidget> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Expanded(
-                                    child: Form(
-                                      key: _formKey,
-                                      child: TextFormField(
-                                        onChanged: (value) {
-                                          phone = value;
-                                        },
-                                        focusNode: _focusNode,
-                                        validator: (value) {
-                                          if (value.length != 10) {
-                                            return "Invalid mobile number ";
-                                          }
-                                          return null;
-                                        },
-                                        inputFormatters: [
-                                          LengthLimitingTextInputFormatter(10)
-                                        ],
-                                        keyboardType: TextInputType.number,
-                                        decoration: InputDecoration(
-                                          enabledBorder: OutlineInputBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(25.0),
-                                            borderSide: BorderSide(
-                                              color: Colors.amber[600],
-                                              width: 2.0,
-                                            ),
-                                          ),
-                                          focusedBorder: OutlineInputBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(25.0),
-                                            borderSide: BorderSide(
-                                              color: Colors.amber[600],
-                                              width: 2.0,
-                                            ),
-                                          ),
-                                          label: Text(
-                                            'Phone Number',
-                                            style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 16,
-                                            ),
-                                          ),
-                                        ),
-                                        style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 24,
-                                          fontWeight: FontWeight.w400,
-                                        ),
+                                      child: PinPut(
+                                    fieldsCount: 6,
+                                    onSubmit: (value) {
+                                      otp = value;
+                                      otpSubmit(otp);
+                                    },
+                                    textStyle: TextStyle(
+                                      fontFamily: 'Lexend Deca',
+                                      color: Colors.white,
+                                      fontSize: 24,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                    selectedFieldDecoration: BoxDecoration(
+                                      border: Border.all(color: Colors.amber),
+                                      borderRadius: BorderRadius.circular(15.0),
+                                    ),
+                                    submittedFieldDecoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(5.0),
+                                      border: Border.all(
+                                        color: Colors.amber,
                                       ),
                                     ),
-                                  ),
+                                    followingFieldDecoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(5.0),
+                                      border: Border.all(
+                                        color: Colors.amber,
+                                      ),
+                                    ),
+                                    cursorColor: Colors.amber,
+                                    // actionButtonsEnabled: false,
+                                  )),
                                 ],
                               ),
                             ),
@@ -178,12 +179,7 @@ class _PhoneloginWidgetState extends State<PhoneloginWidget> {
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 children: [
                                   ElevatedButton(
-                                    onPressed: () {
-                                      if (_formKey.currentState.validate()) {
-                                        startPhoneAuth(phone, context);
-                                        print("Next");
-                                      }
-                                    },
+                                    onPressed: () {},
                                     child: Text(
                                       'Verify',
                                       style: TextStyle(
@@ -209,20 +205,5 @@ class _PhoneloginWidgetState extends State<PhoneloginWidget> {
             ),
           );
         });
-  }
-  startPhoneAuth(String phone, BuildContext navcontext) {
-    LoginProvider.startAuth(phoneNumber: "+91" + phone);
-    LoginProvider.stateStream.listen((state) {
-      if (state == PhoneAuthState.CodeSent) {
-        Navigator.of(_scaffoldKey.currentContext)
-            .pushReplacement(SlideRightRoute(page: OTPPageWidget()));
-      }
-      if (state == PhoneAuthState.Failed) {
-        print("phone auth failed......");
-        // debugPrint("Seems there is an issue with it");
-        Navigator.of(_scaffoldKey.currentContext)
-            .pushReplacement(SlideRightRoute(page: PhoneloginWidget()));
-      }
-    });
   }
 }
