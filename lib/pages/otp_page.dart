@@ -1,5 +1,5 @@
 import 'package:breview/pages/login_page.dart';
-import 'package:breview/pages/user_details_page.dart';
+import 'package:breview/pages/user_details.dart';
 import 'package:breview/provider/LoginProvider.dart';
 import 'package:breview/util/RouteAnimation.dart';
 import 'package:flutter/foundation.dart';
