@@ -1,3 +1,5 @@
+import 'package:breview/provider/LoginProvider.dart';
+import 'package:breview/util/RouteAnimation.dart'
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -176,7 +178,12 @@ class _PhoneloginWidgetState extends State<PhoneloginWidget> {
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 children: [
                                   ElevatedButton(
-                                    onPressed: () {},
+                                    onPressed: () {
+                                      if (_formKey.currentState.validate()) {
+                                        startPhoneAuth(phone, context);
+                                        print("Next");
+                                      }
+                                    },
                                     child: Text(
                                       'Verify',
                                       style: TextStyle(
@@ -202,5 +209,20 @@ class _PhoneloginWidgetState extends State<PhoneloginWidget> {
             ),
           );
         });
+  }
+  startPhoneAuth(String phone, BuildContext navcontext) {
+    LoginProvider.startAuth(phoneNumber: "+91" + phone);
+    LoginProvider.stateStream.listen((state) {
+      if (state == PhoneAuthState.CodeSent) {
+        Navigator.of(_scaffoldKey.currentContext)
+            .pushReplacement(SlideRightRoute(page: OTPPageWidget()));
+      }
+      if (state == PhoneAuthState.Failed) {
+        print("phone auth failed......");
+        // debugPrint("Seems there is an issue with it");
+        Navigator.of(_scaffoldKey.currentContext)
+            .pushReplacement(SlideRightRoute(page: PhoneloginWidget()));
+      }
+    });
   }
 }
