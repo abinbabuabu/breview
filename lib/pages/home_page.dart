@@ -29,7 +29,7 @@ class _HomePageState extends State<HomePage> {
     return FlutterWebFrame(
         maximumSize: Size(750, double.infinity),
         enabled: kIsWeb && MediaQuery.of(context).size.width > 700,
-        backgroundColor: Colors.grey,
+        backgroundColor: Colors.black,
         builder: (context) {
           return Scaffold(
               body: _children[_currentIndex],
@@ -39,12 +39,13 @@ class _HomePageState extends State<HomePage> {
                 currentIndex: _currentIndex,
                 onTap: _onTapped,
                 items: [
-                  BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
-
+                  BottomNavigationBarItem(
+                      icon: Icon(Icons.home), label: "Home"),
+                  BottomNavigationBarItem(
+                      icon: Icon(Icons.people), label: "Friends")
                 ],
               ));
-        }
-    );
+        });
   }
 
   @override
