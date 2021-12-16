@@ -28,7 +28,9 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    checkLoginStatus(_scaffoldKey.currentContext);
+    Timer(Duration(milliseconds: 1000), () {
+      checkLoginStatus(_scaffoldKey.currentContext);
+    });
 
     return FlutterWebFrame(
       builder: (context) {
