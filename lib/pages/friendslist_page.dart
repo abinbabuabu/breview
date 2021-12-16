@@ -73,7 +73,7 @@ class _FriendsListState extends State<FriendsList> {
                           ),
                           Padding(
                             padding:
-                            EdgeInsetsDirectional.fromSTEB(12, 0, 12, 0),
+                            EdgeInsetsDirectional.fromSTEB(5, 0, 5, 0),
                             child: Card(
                               clipBehavior: Clip.antiAliasWithSaveLayer,
                               color: Colors.white,
@@ -83,7 +83,7 @@ class _FriendsListState extends State<FriendsList> {
                               ),
                               child: Padding(
                                 padding:
-                                EdgeInsetsDirectional.fromSTEB(8, 0, 8, 0),
+                                EdgeInsetsDirectional.fromSTEB(5, 0, 5, 0),
                                 child: Row(
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
