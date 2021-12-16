@@ -104,6 +104,44 @@ class _BlogsPageState extends State<BlogsPage> {
                 ),
               ),
             ),
+            FutureBuilder(
+                future: crudMethods.getData("blogs"),
+                builder: (context, AsyncSnapshot<dynamic> snap) {
+                  return Padding(
+                    padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 32),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        StreamBuilder(
+                            stream: snap.data,
+                            builder: (context, snapshot) {
+                              if (snapshot.hasData) {
+                                return ListView.builder(
+                                    physics: NeverScrollableScrollPhysics(),
+                                    shrinkWrap: true,
+                                    itemCount: snapshot.data.docs.length,
+                                    itemBuilder: (context, index) {
+                                      return BlogsProfileWidget(
+                                          profilePictureUrl: snapshot.data
+                                              .docs[index]['ProfilePictureUrl'],
+                                          username: snapshot.data.docs[index]
+                                              ['username'],
+                                          image: snapshot.data.docs[index]
+                                              ['image'],
+                                          likes: snapshot
+                                              .data.docs[index]['likes']
+                                              .toString());
+                                    });
+                              } else {
+                                return Container(
+                                    alignment: Alignment.center,
+                                    child: CircularProgressIndicator());
+                              }
+                            }),
+                      ],
+                    ),
+                  );
+                })
           ],
         ),
       ),
