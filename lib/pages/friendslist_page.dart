@@ -1,8 +1,8 @@
-import 'package:breview/widgets/FriendListWidget.dart';
+// import 'package:breview/widgets/FriendListWidget.dart';
 import 'package:flutter/material.dart';
-import 'package:breview/widgets/FriendsWidget.dart';
-import 'package:breview/util/Constants.dart';
-import 'package:breview/services/crud.dart';
+// import 'package:breview/widgets/FriendsWidget.dart';
+// import 'package:breview/util/Constants.dart';
+// import 'package:breview/services/crud.dart';
 
 class FriendsList extends StatefulWidget {
   FriendsList({Key key}) : super(key: key);

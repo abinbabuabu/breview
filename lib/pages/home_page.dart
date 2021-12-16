@@ -1,9 +1,9 @@
-import 'package:breview/pages/blogs_page.dart';
+// import 'package:breview/pages/blogs_page.dart';
 import 'package:breview/pages/friendslist_page.dart';
-import 'package:breview/util/Constants.dart';
+// import 'package:breview/util/Constants.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_web_frame/flutter_web_frame.dart';
+// import 'package:flutter_web_frame/flutter_web_frame.dart';
 
 class HomePage extends StatefulWidget {
   @override
